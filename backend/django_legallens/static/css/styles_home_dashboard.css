@@ -1,0 +1,297 @@
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  /** Parte sacada de https://uiverse.io/kennyotsu/short-warthog-33 **/
+  /* Add your background pattern here */
+  background-color: #313131;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.171) 2px, transparent 0);
+  background-size: 30px 30px;
+  background-position: -5px -5px
+  border-radius: 20px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+}
+
+
+
+
+.general-background {
+  background: #171717;
+}
+
+body {
+  font-family: Consolas, sans-serif;
+  padding: 20px;
+  width: inherit;
+  color: #fff;
+}
+
+
+
+
+/* Contenedor de los tabs */
+.tabs {
+  display: flex;
+  margin: 20px 0px 0px 0px;
+  gap: 10px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  border: 2px solid #232323;
+  background: #1f1f1f;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 10px 10px 0 0;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.tab-btn.active {
+  background: #313131;
+  border: 2px solid #3498db;
+  border-bottom: 2px solid #3498db;
+}
+
+/* Contenedores de contenido */
+.tab-content {
+  display: none;
+  padding: 20px;
+  border-radius: 0 5px 5px 5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  /** Parte sacada de https://uiverse.io/kennyotsu/short-warthog-33 **/
+  /* Add your background pattern here */
+  background-color: #313131;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.171) 2px, transparent 0);
+  background-size: 30px 30px;
+  background-position: -5px -5px
+}
+
+.tab-content.show {
+  display: block;
+  opacity: 1;
+}
+
+.carta:hover::before {
+  height: 100%;
+}
+
+/** Para que la barra lateral de scroll no moleste
+ * https://stackoverflow.com/q/72667272
+**/
+html {
+  scrollbar-gutter: stable;
+}
+
+/**
+//====================================================================\\
+||    FUENTE: https://uiverse.io/Spacious74/lazy-dragonfly-64         ||
+\\====================================================================//
+**/
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn-logo {
+  padding: 12px 20px;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: relative;
+  background: linear-gradient(90deg, #5bfcc4, #f593e4, #71a4f0);
+  border-radius: 12px;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow:
+    inset 0px 0px 5px #ffffffa9,
+    inset 0px 35px 30px #000,
+    0px 5px 10px #000000cc;
+  text-shadow: 1px 1px 1px #000;
+}
+.btn-logo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border-radius: 12px;
+  filter: blur(0);
+  z-index: -1;
+  box-shadow: none;
+  background: conic-gradient(
+    #00000000 80deg,
+    #40baf7,
+    #f34ad7,
+    #5bfcc4,
+    #00000000 280deg
+  );
+  transition: all 0.3s ease;
+}
+.btn-logo:hover::before {
+  filter: blur(15px);
+}
+.btn-logo:active::before {
+  filter: blur(5px);
+  transform: translateY(1px);
+}
+.btn-logo:active {
+  box-shadow:
+    inset 0px 0px 5px #ffffffa9,
+    inset 0px 35px 30px #000;
+  margin-top: 3px;
+}
+
+
+
+
+
+/**
+//====================================================================\\
+||    FUENTE: https://uiverse.io/gharsh11032000/tricky-ape-30         ||
+\\====================================================================//
+**/
+.carta {
+  position: relative;
+  width: inherit;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  padding: 6px 30px 26px 30px;
+  margin: 40px 26px;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: all 0.25s cubic-bezier(0.23, 1, 0.320, 1);
+  background: #171717;
+}
+
+.carta-contenido {
+  flex-direction: column;
+  align-items: flex-start;
+  color: #e8e8e8;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.carta-contenido .encabezado {
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.carta-contenido .contenido {
+  line-height: 1.5;
+}
+
+.carta-contenido .btn {
+  color: #e8e8e8;
+  text-decoration: none;
+  padding: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100% );
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.carta::before {
+  background: #fff;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100% );
+  transition: all 0.25s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.carta:hover::before {
+  height: 6%;
+}
+
+
+.carta-contenido .btn:hover {
+  outline: 2px solid #e8e8e8;
+  background: transparent;
+  color: #e8e8e8;
+}
+
+.carta-contenido .btn:active {
+
+  background: #fff;
+  box-shadow: none;
+}
+
+
+
+/**
+//====================================================================\\
+||    FUENTE: https://uiverse.io/SelfMadeSystem/tough-fireant-47      ||
+\\====================================================================//
+**/
+.btn-log {
+  margin: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+.btn-log-primary {
+  background: linear-gradient(#1f5afe, #0f4cf5);
+  color: white;
+  box-shadow: inset 0pt 4pt 3pt -2pt #386fff, 0pt 4pt 5pt -3pt #0009;
+  border-bottom: 2pt solid #083acd;
+  transition: all 0.5s ease;
+}
+
+.btn-log-primary:hover {
+  border-bottom: 4pt solid #083acd;
+  translate: 0pt -1pt;
+}
+
+.btn-log-primary:active {
+  box-shadow: inset 0pt 4pt 3pt -2pt #386fff, 0pt 4pt 5pt -3pt #0000;
+  border-bottom: 1pt solid #083acd;
+  translate: 0pt 0pt;
+}
+
+.btn-log-primary {
+  background-color: #3e6eff;
+  box-shadow: inset 0pt -3pt 3pt -2pt #1f54f0, inset 0pt 3pt 3pt -2pt #658dff,
+    0pt 2pt 2pt -2pt #0005, 0pt 0pt 0pt 2pt #0d47f0;
+}
+
+.btn-log-base {
+  background: #386fff;
+}
+
+
+

@@ -1,0 +1,428 @@
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-radius: 20px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+}
+
+
+.general-background {
+  color: #fff;
+  background: #171717;
+}
+
+.background-puntillo {
+
+  border-radius: 20px;
+  /** Parte sacada de https://uiverse.io/kennyotsu/short-warthog-33 **/
+  /* Add your background pattern here */
+  background-color: #313131;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.171) 2px, transparent 0);
+  background-size: 30px 30px;
+  background-position: -5px -5px
+}
+
+body {
+  font-family: Consolas, sans-serif;
+  padding: 20px;
+  width: inherit;
+  color: #fff;
+}
+
+
+subtexto-informativo {
+display: inline-block;
+}
+
+
+/** Para que la barra lateral de scroll no moleste
+ * https://stackoverflow.com/q/72667272
+**/
+html {
+  scrollbar-gutter: stable;
+}
+
+
+
+/**
+//====================================================================\\
+||    FUENTE: https://uiverse.io/Spacious74/lazy-dragonfly-64         ||
+\\====================================================================//
+**/
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn-logo {
+  padding: 12px 20px;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: relative;
+  background: linear-gradient(90deg, #5bfcc4, #f593e4, #71a4f0);
+  border-radius: 12px;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow:
+    inset 0px 0px 5px #ffffffa9,
+    inset 0px 35px 30px #000,
+    0px 5px 10px #000000cc;
+  text-shadow: 1px 1px 1px #000;
+}
+.btn-logo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border-radius: 12px;
+  filter: blur(0);
+  z-index: -1;
+  box-shadow: none;
+  background: conic-gradient(
+    #00000000 80deg,
+    #40baf7,
+    #f34ad7,
+    #5bfcc4,
+    #00000000 280deg
+  );
+  transition: all 0.3s ease;
+}
+.btn-logo:hover::before {
+  filter: blur(15px);
+}
+.btn-logo:active::before {
+  filter: blur(5px);
+  transform: translateY(1px);
+}
+.btn-logo:active {
+  box-shadow:
+    inset 0px 0px 5px #ffffffa9,
+    inset 0px 35px 30px #000;
+  margin-top: 3px;
+}
+
+
+/**
+//====================================================================\\
+||    FUENTE: https://uiverse.io/SelfMadeSystem/tough-fireant-47      ||
+\\====================================================================//
+**/
+.btn-log {
+  margin: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+.btn-log-primary {
+  background: linear-gradient(#1f5afe, #0f4cf5);
+  color: white;
+  box-shadow: inset 0pt 4pt 3pt -2pt #386fff, 0pt 4pt 5pt -3pt #0009;
+  border-bottom: 2pt solid #083acd;
+  transition: all 0.5s ease;
+}
+
+.btn-log-primary:hover {
+  border-bottom: 4pt solid #083acd;
+  translate: 0pt -1pt;
+}
+
+.btn-log-primary:active {
+  box-shadow: inset 0pt 4pt 3pt -2pt #386fff, 0pt 4pt 5pt -3pt #0000;
+  border-bottom: 1pt solid #083acd;
+  translate: 0pt 0pt;
+}
+
+.btn-log-primary {
+  background-color: #3e6eff;
+  box-shadow: inset 0pt -3pt 3pt -2pt #1f54f0, inset 0pt 3pt 3pt -2pt #658dff,
+    0pt 2pt 2pt -2pt #0005, 0pt 0pt 0pt 2pt #0d47f0;
+}
+
+.btn-log-base {
+  background: #386fff;
+}
+
+
+
+
+/**
+//====================================================================\\
+||       FUENTE: https://uiverse.io/Admin12121/little-catfish-39      ||
+\\====================================================================//
+**/
+
+.section_our_solution .row {
+  align-items: center;
+}
+
+.our_solution_category {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.our_solution_category .solution_cards_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.solution_cards_box .solution_card {
+  flex: 0 50%;
+  background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),
+    0 5px 15px 0 rgba(37, 44, 97, 0.15);
+  border-radius: 15px;
+  margin: 8px;
+  padding: 10px 15px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  min-height: 265px;
+  transition: 0.7s;
+}
+
+
+
+.solution_cards_box .solution_card:before {
+  content: "";
+  position: absolute;
+  background: rgb(85 108 214 / 5%);
+  width: 170px;
+  height: 400px;
+  z-index: -1;
+  transform: rotate(42deg);
+  right: -56px;
+  top: -23px;
+  border-radius: 35px;
+}
+
+
+
+
+.solution_card .solu_title div {
+  color: #212121;
+  font-size: 1.3rem;
+  margin-top: 13px;
+  margin-bottom: 13px;
+}
+
+.solution_card .solu_description p {
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.solution_card .solu_description button {
+  border: 0;
+  border-radius: 15px;
+  background: linear-gradient(
+    140deg,
+    #42c3ca 0%,
+    #42c3ca 50%,
+    #42c3cac7 75%
+  ) !important;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 5px 16px;
+}
+
+.our_solution_content div {
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+
+
+.solution_cards_box .solution_card .so_top_icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.solution_cards_box .solution_card .so_top_icon img {
+  width: 40px;
+  height: 50px;
+  object-fit: contain;
+}
+
+/*start media query*/
+@media screen and (min-width: 320px) {
+  .sol_card_top_3 {
+    position: relative;
+    top: 0;
+  }
+
+  .our_solution_category {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .our_solution_category .solution_cards_box {
+    flex: auto;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .our_solution_category .solution_cards_box {
+    flex: 1;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .sol_card_top_3 {
+    position: relative;
+    top: -3rem;
+  }
+
+  .our_solution_category {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+
+
+/**
+//====================================================================\\
+||       FUENTE: https://uiverse.io/Admin12121/little-catfish-39      ||
+\\====================================================================//
+**/
+.carta-tarea {
+  width: inherit;
+  margin: 20px 20px 20px 40px;
+  background: #171717;
+  border-radius: 0.75em;
+  cursor: pointer;
+  transition: ease 0.2s;
+  border: 1.5px solid #f2f3f7;
+}
+
+.carta-tarea:hover {
+  background-color: #101A25;
+  border: 1.5px solid #1677ff;
+}
+
+.contenedor-tarea {
+  width: inherit;
+  margin-top: 1.25em;
+  margin-bottom: 1.375em;
+  margin-left: 1.375em;
+  margin-right: 2em;
+  display: flex;
+  flex-direction: row;
+  gap: 0.75em;
+}
+
+.status-ind {
+  width: 0.625em;
+  height: 0.625em;
+  margin: 0.375em 0;
+  border-radius: 0.5em;
+}
+
+.text-wrap {
+  display: flex;
+  align-items: center
+  color: #fff;
+}
+
+.carta-tarea-titulo {
+
+  font-size: 1.4rem;
+  margin-left: 12px;
+  color: #fff;
+}
+
+.carta-tarea-contenido {
+  font-weight: 500;
+
+  margin-left: 20px;
+  text-decoration: none;
+  font-family: consolas;
+  color: #fff;
+}
+
+
+
+
+
+.right {
+  display: flex;
+  width: inherit;
+  flex-direction: column;
+  gap: 0.875em;
+}
+
+
+.secondary-cta {
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  margin-left: 20px;
+  font-weight: 400;
+  color: #aaaaaa;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

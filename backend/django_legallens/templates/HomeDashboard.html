@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+{% load static %}
+<head>
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}" >
+    <link rel="stylesheet" href="{% static 'css/styles_home_dashboard.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Álvaro Cordero Fernández">
+    <title>TaskManager</title>
+</head>
+
+
+
+<body class="general-background">
+
+{% if user.is_authenticated %}
+
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-logo flex" onclick="location.href='{% url 'home' %}'">TaskManager</button>
+        </div>
+
+        <div class="header-right user">
+            <span class="avatar">{{ user.username|slice:":1" }}</span>
+            <span class="user-name">{{ user.username }}</span>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-log btn-log-primary">
+                    <span>Logout</span>
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-target="mis-proyectos">Mis Proyectos</button>
+        <button class="tab-btn" data-target="colaboraciones">Colaboraciones</button>
+    </div>
+
+
+
+    <!-- ######  PROJECTOS - PROPIETARIO  ###### -->
+    <div id="mis-proyectos" class="tab-content show">
+        <h1 style="padding-left:20px">Mis Proyectos</h1>
+
+        {% for tasks_info, op in owned_project_data %}
+            <ul>
+
+                <div class="carta">
+                    <div class="carta-contenido">
+                        <p class="encabezado">{{ op.title }}</p>
+                        <p class="contenido">
+                            Tareas: {{ tasks_info.0 }} / {{ tasks_info.1 }} <progress value="{{ tasks_info.0 }}" max="{{ tasks_info.1 }}"></progress>
+                            <br>
+                            {{ op.description }}
+                        </p>
+                        <a href="project_viewer?pid={{ op.id }}"><button class="btn">Entrar al proyecto</button></a>
+                    </div>
+                </div>
+
+            </ul>
+
+        {% empty %}
+            <p>Aún no posees proyectos.</p>
+        {% endfor %}
+    </div>
+
+
+
+    <!-- ######  PROJECTOS - COLABORACIONES  ###### -->
+    <div id="colaboraciones" class="tab-content">
+        <h1 style="padding-left:20px">Colaboraciones</h1>
+
+        {% for tasks_info, cp in collad_project_data %}
+            <ul>
+
+                <div class="carta">
+                    <div class="carta-contenido">
+                        <p class="encabezado">{{ cp.title }}</p>
+                        <p class="contenido">
+                            Tareas: {{ tasks_info.0 }} / {{ tasks_info.1 }} <progress value="{{ tasks_info.0 }}" max="{{ tasks_info.1 }}"></progress>
+                            <br>
+                            {{ cp.description }}
+                        </p>
+                        <a href="project_viewer?pid={{ cp.id }}"><button class="btn">Entrar al proyecto</button></a>
+                    </div>
+                </div>
+
+            </ul>
+        {% empty %}
+            <p>Aún no estas colaborando en ningún proyecto.</p>
+        {% endfor %}
+    </div>
+
+
+
+
+{% else %}
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %} <!-- Este token va en el POST y DJango lo valida-->
+        <h2>Necesitas autenticarte primero</h2>
+        <button class="btn-log btn-log-primary" type="submit">Login </button>
+    </form>
+{% endif %}
+
+
+<script src="{% static 'js/scripts_home_dashboard.js' %}"></script>
+</body>
+</html>
