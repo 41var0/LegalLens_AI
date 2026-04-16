@@ -32,5 +32,4 @@ COPY . /app/
 EXPOSE 8080
 
 # 9. Comando para ejecutar la aplicación
-# 9. Comando para ejecutar la aplicación
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
