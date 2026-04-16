@@ -16,7 +16,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
+    healthcheck: # Como un flag (https://docs.docker.com/compose/how-tos/startup-order/)
+      test: [ "CMD-SHELL", "pg_isready -U admin -d legallens_db" ]
+      interval: 5s  # Segundos para realizar un check
+      timeout: 5s   # Falla el check si el pg_isready tarda mas de estos segundos
+      retries: 24   # Dos minutos ( 24 intentos en intervalos de 5 segundos
 
   backend-django:
     build: ./backend
@@ -29,8 +33,22 @@ services:
       - "8080:8080"
     volumes:
       - ./backend:/app
+    # Comando de arranque en Dockerfile propio (./backend/Dockerfile)
 
 
+  ai-engine:
+    build: ./ai_engine
+    container_name: fastapi-ai-engine
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy # Checkea la condicion "healty" que tiene el contenedor de db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ai_engine:/app
+    # Comando de arranque en Dockerfile propio (./ai_engine/Dockerfile)
 
 
 #  ai-engine:
@@ -38,7 +56,6 @@ services:
 #    container_name: ai-engine
 #    command: uvicorn main:app --host 0.0.0.0 --port 8000
 #    volumes:
-#      - ./ai_engine:/app
 #    ports:
 #      - "8000:8000"
 ################################################################

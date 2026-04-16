@@ -20,16 +20,16 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # 6. Crear un usuario no-root por seguridad
 # Por defecto, Docker corre como root, lo cual es un riesgo de seguridad
-RUN useradd -m legallensuser_backend
+RUN useradd -m legallensuser_ai_engine
 # Añade esto para que el usuario sea dueño de la carpeta de trabajo
-RUN chown -R legallensuser_backend:legallensuser_backend /app
-USER legallensuser_backend
+RUN chown -R legallensuser_ai_engine:legallensuser_ai_engine /app
+USER legallensuser_ai_engine
 
 # 7. Copiar el resto del código
 COPY . /app/
 
 # 8. Exponer el puerto (FastAPI suele usar el 8080)
-EXPOSE 8080
+EXPOSE 8000
 
 # 9. Comando para ejecutar la aplicación
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
