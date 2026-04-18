@@ -2,7 +2,7 @@ volumes:
   postgres_data:
 
 services:
-  db:
+  db: #=#=#=#=#=# DB #=#=#=#=#=#
     image: postgres:15-alpine
     container_name: legallens_db
     restart: always
@@ -22,21 +22,21 @@ services:
       timeout: 5s   # Falla el check si el pg_isready tarda mas de estos segundos
       retries: 24   # Dos minutos ( 24 intentos en intervalos de 5 segundos
 
-  backend-django:
+  backend-django: #=#=#=#=#=# DJANGO #=#=#=#=#=#
     build: ./backend
     container_name: backend-django-legallens
     env_file:
       - .env
     depends_on:
       - db
-    ports:
-      - "8080:8080"
+    expose: # 'expose' en vez de 'ports' hace que solo sea accesible internamente para Nginx
+      - "8080"
     volumes:
       - ./backend:/app
     # Comando de arranque en Dockerfile propio (./backend/Dockerfile)
 
 
-  ai-engine:
+  ai-engine: #=#=#=#=#=# FASTAPI #=#=#=#=#=#
     build: ./ai_engine
     container_name: fastapi-ai-engine
     env_file:
@@ -44,45 +44,19 @@ services:
     depends_on:
       db:
         condition: service_healthy # Checkea la condicion "healty" que tiene el contenedor de db
-    ports:
-      - "8000:8000"
+    expose: # 'expose' en vez de 'ports' hace que solo sea accesible internamente para Nginx
+      - "8000"
     volumes:
       - ./ai_engine:/app
     # Comando de arranque en Dockerfile propio (./ai_engine/Dockerfile)
 
 
-#  ai-engine:
-#    build: ./ai_engine
-#    container_name: ai-engine
-#    command: uvicorn main:app --host 0.0.0.0 --port 8000
-#    volumes:
-#    ports:
-#      - "8000:8000"
-################################################################
-#  nginx:
-#    image: nginx:latest
-#    container_name: nginx-proxy
-#    volumes:
-#      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-#    ports:
-#      - "80:80"
-#    depends_on:
-#      - backend-django
-#      - ai-engine
-
-
-
-
-
-#  api:
-#    build: .
-#    container_name: legallens_api
-#    ports:
-#      - "8000:8000"
-#    volumes:
-#      - ./app:/app/app
-#      - ./tests:/app/tests
-#    environment:
-#      - DATABASE_URL=postgresql://admin:admin@db:5432/legallens_db
-#    # El comando para arrancar la API directamente
-#    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+  nginx: #=#=#=#=#=# NGINX #=#=#=#=#=#
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend-django
+      - ai-engine
