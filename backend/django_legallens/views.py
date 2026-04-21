@@ -3,7 +3,7 @@ from django.views.generic import ListView
 
 class HomeDashboard(ListView):
 
-    # model = None
+    model = None
     template_name = 'HomeDashboard.html'
 
     def get_context_data(self, **kwargs):

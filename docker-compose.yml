@@ -33,6 +33,7 @@ services:
       - "8080"
     volumes:
       - ./backend:/app
+      - ./backend/media:/app/media # Para los PDF
     # Comando de arranque en Dockerfile propio (./backend/Dockerfile)
 
 
