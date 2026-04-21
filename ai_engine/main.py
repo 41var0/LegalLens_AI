@@ -1,3 +1,5 @@
+from os import environ
+from random import randint, sample, choice
 from fastapi import FastAPI, UploadFile, File
 import pymupdf
 from datetime import datetime
@@ -7,6 +9,19 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 
 
+#=========  Configuracion de FastAPI  ========#
+#  FIXME FIXME FIXME FIXME FIXME FIXME FIXME  #
+#                                             #
+#   ESTA VERSION DE FASTAPI ESTA MODIFICADA   #
+#   PARA NO CARGARME LAS TOKENS DE GOOGLE     #
+#   GitHub commit: "FastAPI IA (OFFLINE) !!"  #
+#                                             #
+#  FIXME FIXME FIXME FIXME FIXME FIXME FIXME  #
+#=============================================#
+
+
+
+
 #======  Configuracion de la IA  ======#
 modelo_ia = "gemini-2.5-flash-lite"
 temperatura= 0.3      # Seriedad con la que responde
@@ -14,6 +29,35 @@ max_tokens=None     # Maxima cantidad de tokens con los que responde
 timeout=None        # Tiempo de error si se tarda mucho en dar una respuesta
 max_intentos = 2    # Numero de intentos hasta dar una respuesta
 #======================================#
+
+
+#========  Simulador de la IA  ========#
+CLAUSULAS_ABUSIVAS_TOTALES = [
+    "Cláusula Primera",
+    "Cláusula Segunda",
+    "Cláusula Tercera",
+    "Cláusula Cuarta",
+    "Cláusula Quinta",
+    "Cláusula Sexta",
+    "Cláusula Séptima",
+    "Cláusula Octava",
+    "Cláusula Novena",
+    "Cláusula Décima",
+    "Cláusula Undécima",
+    "Cláusula Duodécima",
+    "Cláusula Decimotercera",
+    "Cláusula Decimocuarta",
+    "Cláusula Decimoquinta",
+    "Cláusula Decimosexta",
+    "Cláusula Decimoséptima",
+    "Cláusula Decimoctava",
+    "Cláusula Decimonovena",
+    "Cláusula Vigésima"
+]
+
+RIESGO_GENERAL_TOTAL = ["none", "low", "medium", "high"]
+#======================================#
+
 
 # Creamos la instancia de FastAPI
 app = FastAPI(
@@ -38,7 +82,22 @@ async def upload_pdf(archivo: UploadFile = File(...)):
 
     texto = extraer_texto(content=content)
 
-    clausulas_abusivas, riesgo_del_docuemnto = analisis_ia(texto)
+    # Las tokens de la IA no son gratuitas, esto nos permite simular el funcionamiento de a IA
+    is_offline = environ.get("FASTAPI_OFFLINE")
+    print(f"{f"FastAPI Offline ? : {is_offline}":40} | ({datetime.now()})")
+
+    if (is_offline):
+        if (choice([True, False])):
+            nuemor_clausulas_abusivas = randint(1, len(CLAUSULAS_ABUSIVAS_TOTALES))  # random number of items
+            clausulas_abusivas = sample(CLAUSULAS_ABUSIVAS_TOTALES, nuemor_clausulas_abusivas)
+            riesgo_del_docuemnto = choice(RIESGO_GENERAL_TOTAL[1:])
+
+        else:
+            clausulas_abusivas = []
+            riesgo_del_docuemnto = RIESGO_GENERAL_TOTAL[0]
+    else:
+        clausulas_abusivas, riesgo_del_docuemnto = analisis_ia(texto)
+
 
     respuesta = {
         "extracted_text":  texto,
