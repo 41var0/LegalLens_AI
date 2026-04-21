@@ -30,13 +30,14 @@ async def root():
 
 
 @app.post("/upload")
-async def upload_pdf(file: UploadFile = File(...)):
-    content = await file.read()
+async def upload_pdf(archivo: UploadFile = File(...)):
+    content = await archivo.read() # Esperamos a leer el archivo entero
 
     pdf = pymupdf.open(stream=content, filetype="PDF")
     text = ""
 
+    # Recuperamos cada texto (y lo sumamos a lo ya existente)
     for page in pdf:
         text += page.get_text()
-        
+
     return {"text": text}
