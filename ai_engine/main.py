@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, status, UploadFile, File
+from fastapi import FastAPI, UploadFile, File
 import pymupdf
 from datetime import datetime
 from langchain_core.messages import AIMessage
