@@ -38,5 +38,5 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     for page in pdf:
         text += page.get_text()
-    print(text)
+        
     return {"text": text}
