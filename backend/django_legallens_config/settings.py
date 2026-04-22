@@ -127,3 +127,15 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = join(BASE_DIR, 'staticfiles')
+
+
+# Define where Django should look for static files during development
+STATICFILES_DIRS = [
+    BASE_DIR / "django_legallens" / "static",
+]
+
+
+# Esto habilita la compresión y el cacheo de archivos (opcional pero recomendado)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
