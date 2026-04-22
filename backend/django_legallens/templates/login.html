@@ -4,6 +4,7 @@
 <head>
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}" >
     <link rel="stylesheet" href="{% static 'css/styles_login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles_home_dashboard.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Álvaro Cordero Fernández">
@@ -11,31 +12,40 @@
 </head>
 
 <body>
-<form class="form" method="post">
 
-
-    {% csrf_token %}
-
-
+{% if user.is_authenticated %}
     <span class="input-span">
-        <label for="id_username" class="label">Nomber de usuario: </label>
-        <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" aria-invalid="true" aria-describedby="id_username_error" id="id_username"/>
+        <label class="label">Ya estas autenticado</label>
+        <label class="label">
+            <div class="header-left">
+                <button class="btn-logo flex" onclick="location.href='{% url 'home' %}'"><img style="max-height: 28px; max-width: 28px; padding: 0px 8px 0px 0px;" src="{% static 'img/legallens_icon.png' %}"/>  Legallens</button>
+            </div>
+        </label>
     </span>
-    <span class="input-span">
-        <label for="id_password" class="label">Contraseña:</label>
-        <input type="password" name="password" autocomplete="current-password" required="" aria-invalid="true" aria-describedby="id_password_error" id="id_password"/>
-    </span>
-
-    <input class="submit" type="submit" value="Login" />
+{% else %}
+    <form class="form" method="post">
+        {% csrf_token %} <!-- Este token va en el POST y DJango lo valida-->
 
 
-    {% if error %}
-        <p class="form-error">{{ error }}</p>
-    {% endif %}
+        <span class="input-span">
+            <label for="id_username" class="label">Nomber de usuario: </label>
+            <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" aria-invalid="true" aria-describedby="id_username_error" id="id_username"/>
+        </span>
+        <span class="input-span">
+            <label for="id_password" class="label">Contraseña:</label>
+            <input type="password" name="password" autocomplete="current-password" required="" aria-invalid="true" aria-describedby="id_password_error" id="id_password"/>
+        </span>
+
+        <input class="submit" type="submit" value="Login" />
 
 
-</form>
+        {% if error %}
+            <p class="form-error">{{ error }}</p>
+        {% endif %}
 
+
+    </form>
+{% endif %}
 
 </body>
 </html>
