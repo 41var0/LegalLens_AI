@@ -19,6 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('django_legallens.urls')),  # Asegúrate de que esta línea existe
+    path('', include('django_legallens.urls')),  # Asegurate de que esta línea existe
 
 ]

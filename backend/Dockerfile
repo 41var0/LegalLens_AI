@@ -18,18 +18,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends build-essential
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 6. Crear un usuario no-root por seguridad
+# 6. Copiar el resto del código
+COPY . /app/
+
+# 7. Crear un usuario no-root por seguridad
 # Por defecto, Docker corre como root, lo cual es un riesgo de seguridad
 RUN useradd -m legallensuser_backend
 # Añade esto para que el usuario sea dueño de la carpeta de trabajo
 RUN chown -R legallensuser_backend:legallensuser_backend /app
+
+# entrypoint permissions ALSO here
+RUN chmod +x /app/entrypoint.sh
+
+# NOW switch user
 USER legallensuser_backend
 
-# 7. Copiar el resto del código
-COPY . /app/
-
-# 8. Exponer el puerto (FastAPI suele usar el 8080)
 EXPOSE 8080
 
-# 9. Comando para ejecutar la aplicación
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+ENTRYPOINT ["/app/entrypoint.sh"]
