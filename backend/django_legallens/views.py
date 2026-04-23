@@ -1,5 +1,8 @@
+from os import path
+
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.http import FileResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from .models import Contract, AuditResult
 import requests
@@ -93,3 +96,6 @@ def __send_pdf_to_ai(file_path:str) -> dict:
 
 
 
+def visualizar_pdf(request, filename):
+    file_path = path.join("contracts", filename)
+    return FileResponse(open(file_path, mode="rb"), content_type='application/pdf')

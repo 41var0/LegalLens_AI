@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import HomeDashboard, subir_documento, realizar_auditacion
+from .views import HomeDashboard, subir_documento, realizar_auditacion, visualizar_pdf
 
 
 urlpatterns = [
@@ -13,4 +13,5 @@ urlpatterns = [
 
     path('subir/doc', subir_documento, name='subir_doc'),
     path('auditar/doc', realizar_auditacion, name='auditar_doc'),
+    path('contracts/<path:filename>', visualizar_pdf, name="contracts"),
 ]
