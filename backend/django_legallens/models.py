@@ -27,9 +27,9 @@ class AuditResult(models.Model):
     ]
 
     contract = models.OneToOneField(Contract, on_delete=models.CASCADE)
-    extracted_text = models.TextField()
-    red_flags = models.TextField()
-    risk_level = models.CharField(max_length=10, choices=RISK_LEVELS)
+    extracted_text = models.TextField(null=True, blank=True)
+    red_flags = models.TextField(null=True, blank=True)
+    risk_level = models.CharField(choices=RISK_LEVELS)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
