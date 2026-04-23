@@ -5,7 +5,7 @@ from .models import Contract, AuditResult
 
 @admin.register(Contract)
 class ContractAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "client_name", "file", "completed", "created_at")
+    list_display = ("id", "lawyer", "client_name", "file", "completed", "created_at")
     list_filter = ("completed", "created_at")
     search_fields = ("client_name", "file")
     ordering = ("-created_at",)

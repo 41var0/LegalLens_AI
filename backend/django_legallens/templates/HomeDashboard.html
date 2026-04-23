@@ -4,10 +4,12 @@
 <head>
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}" >
     <link rel="stylesheet" href="{% static 'css/styles_home_dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_for_pdf_input.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_for_client_name.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Álvaro Cordero Fernández">
-    <title>TaskManager</title>
+    <title>Legallens</title>
 </head>
 
 
@@ -18,7 +20,7 @@
 
     <header class="header">
         <div class="header-left">
-            <button class="btn-logo flex" onclick="location.href='{% url 'home' %}'">TaskManager</button>
+            <button class="btn-logo flex" onclick="location.href='{% url 'home' %}'"><img style="max-height: 28px; max-width: 28px; padding: 0px 8px 0px 0px;" src="{% static 'img/legallens_icon.png' %}"/>  Legallens</button>
         </div>
 
         <div class="header-right user">
@@ -34,62 +36,122 @@
     </header>
 
     <div class="tabs">
-        <button class="tab-btn active" data-target="mis-proyectos">Mis Proyectos</button>
-        <button class="tab-btn" data-target="colaboraciones">Colaboraciones</button>
+        <button class="tab-btn " data-target="nuevo-doc">Nuevo documento</button>
+        <button class="tab-btn active" data-target="docs-existentes">Documentos existentes</button>
     </div>
 
 
 
-    <!-- ######  PROJECTOS - PROPIETARIO  ###### -->
-    <div id="mis-proyectos" class="tab-content show">
-        <h1 style="padding-left:20px">Mis Proyectos</h1>
+    <!-- ######  Nuevo documento  ###### -->
+    <div id="nuevo-doc" class="tab-content">
+        <h1 style="padding-left:20px">Nuevo documento</h1>
 
-        {% for tasks_info, op in owned_project_data %}
-            <ul>
 
-                <div class="carta">
-                    <div class="carta-contenido">
-                        <p class="encabezado">{{ op.title }}</p>
-                        <p class="contenido">
-                            Tareas: {{ tasks_info.0 }} / {{ tasks_info.1 }} <progress value="{{ tasks_info.0 }}" max="{{ tasks_info.1 }}"></progress>
-                            <br>
-                            {{ op.description }}
-                        </p>
-                        <a href="project_viewer?pid={{ op.id }}"><button class="btn">Entrar al proyecto</button></a>
-                    </div>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'subir_doc' %}">
+        {% csrf_token %}    <!-- Este token va en el POST y DJango lo valida-->
+
+
+        <div>
+            <!-- ############  Nombre del Cliente  ############ -->
+            <div style="padding: 40px 20px">
+                <div class="input-nameUser-form">
+                    <input class="input-nameUser" name="clientename" id="clientename" type="text" required>
+                    <label for="clientename" class="textUser">Nombre del cliente</label>
                 </div>
+            </div>
 
-            </ul>
 
-        {% empty %}
-            <p>Aún no posees proyectos.</p>
-        {% endfor %}
+            <!-- ############  Archivo PDF  ############ -->
+            <div style="width: 200px;  align-items: center; display: flex; padding: 20px 34px">
+                <div class="contedor-doc">
+                    <div class="folder-doc">
+                        <div class="front-side-doc">
+                            <div class="tip-doc"></div>
+                            <div class="cover-doc"></div>
+                        </div>
+                        <div class="back-side cover-doc"></div>
+                    </div>
+                    <label class="custom-file-upload">
+                        <input class="title" type="file" required id="doc" name="doc" accept=".pdf" />
+                        <span class="label-text">Sube un documento</span>
+                        <span class="file-name"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ############  Id del lawyer actual  ############ -->
+        <input type="hidden" name="lawyer_id" value="{{ user.id }}">
+
+
+        <!-- ############  Boton de envio  ############ -->
+        <div  style="padding: 20px 49px">
+            <button type="submit" class="btn-subir-doc" style="padding: 10px">
+                <span class="btn__icon">
+                    <svg stroke-linejoin="round" stroke-linecap="round" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
+                        <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"></path>
+                        <path d="M9 15l3 -3l3 3"></path>
+                        <path d="M12 12l0 9"></path>
+                    </svg>
+                </span>
+                <span class="btn__text">Subir documento</span>
+            </button>
+        </div>
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
 
 
-    <!-- ######  PROJECTOS - COLABORACIONES  ###### -->
-    <div id="colaboraciones" class="tab-content">
-        <h1 style="padding-left:20px">Colaboraciones</h1>
 
-        {% for tasks_info, cp in collad_project_data %}
+
+    <!-- ######  Documentos existentes  ###### -->
+    <div id="docs-existentes" class="tab-content show">
+        <h1 style="padding-left:20px">Documentos existentes</h1>
+
+        {% for doc in documentos_legales %}
             <ul>
 
-                <div class="carta">
+                <div class="carta {% if doc.completed %} carta-auditada {% else %} carta-sin-auditar {% endif %}">
                     <div class="carta-contenido">
-                        <p class="encabezado">{{ cp.title }}</p>
-                        <p class="contenido">
-                            Tareas: {{ tasks_info.0 }} / {{ tasks_info.1 }} <progress value="{{ tasks_info.0 }}" max="{{ tasks_info.1 }}"></progress>
-                            <br>
-                            {{ cp.description }}
-                        </p>
-                        <a href="project_viewer?pid={{ cp.id }}"><button class="btn">Entrar al proyecto</button></a>
+                        <p class="encabezado">{{ doc.client_name }}</p>
+                        <p class="contenido">{{ doc.created_at }}</p>
+                        <p class="contenido">{{ doc.completed }}</p>
+                        <p class="contenido">{{ doc.file }}</p>
                     </div>
                 </div>
 
             </ul>
         {% empty %}
-            <p>Aún no estas colaborando en ningún proyecto.</p>
+            <p>No existen analisis sobre ningún documento aún.</p>
         {% endfor %}
     </div>
 
