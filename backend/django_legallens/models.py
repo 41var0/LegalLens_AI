@@ -26,6 +26,19 @@ class AuditResult(models.Model):
         ("high", "Alto"),
     ]
 
+    RISK_COLORS = {
+        "none": "#0f6fff",
+        "low": "#F1C232",
+        "medium": "#ff6000",
+        "high": "#ff0000",
+    }
+
+
+    @property
+    def risk_color(self):
+        return self.RISK_COLORS.get(self.risk_level, "white")
+
+
     contract = models.OneToOneField(Contract, on_delete=models.CASCADE)
     extracted_text = models.TextField(null=True, blank=True)
     red_flags = models.TextField(null=True, blank=True)
