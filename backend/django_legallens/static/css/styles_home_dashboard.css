@@ -242,7 +242,7 @@ html {
 }
 
 .carta-sin-auditar::before {
-  background: linear-gradient(35deg, #f70814 0%, #89040B 100%) ;
+  background: linear-gradient(35deg, #225EB9 0%, #062C66 100%) ;
 }
 
 .carta-none_auditada::before {
@@ -250,7 +250,7 @@ html {
 }
 
 .carta:hover::before {
-  height: 8%;
+  height: 1.4rem;
 }
 
 
@@ -266,6 +266,26 @@ html {
   box-shadow: none;
 }
 
+.status-ind {
+  width: 0.625em;
+  height: 0.625em;
+  margin: 0.375em 0;
+  border-radius: 0.5em;
+}
+
+
+.text-wrap {
+  display: flex;
+  align-items: center
+  color: #fff;
+}
+
+.carta-tarea-titulo {
+
+  font-size: 1.4rem;
+  margin-left: 12px;
+  color: #fff;
+}
 
 
 /**

@@ -100,34 +100,34 @@
             </button>
         </div>
     </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -142,11 +142,63 @@
 
                 <div class="carta {{ doc.completed|yesno:'carta-auditada,carta-sin-auditar,carta-none_auditada' }} ">
                     <div class="carta-contenido">
-                        <p class="encabezado">{{ doc.client_name }}</p>
-                        <p class="contenido">{{ doc.created_at }}</p>
-                        <p class="contenido">{{ doc.completed }}</p>
-                        <p class="contenido">{{ doc.file }}</p>
-                        <a href="{{ doc.file.url }}"><p class="contenido">{{ doc.file.url }}</p></a>
+                        <p class="encabezado">Cliente: {{ doc.client_name }}</p>
+                        <p class="contenido"><a href="{{ doc.file.url }}">{{ doc.file.name|cut:"contracts/" }}</a></p>
+
+                        {% if doc.auditresult %}
+                            <!--
+                            Este trocito de codigo es arte, lo que se hace y como se hace
+                            difiere mucho de como estaba al principio
+                            -->
+                            <div class="text-wrap">
+                                <div style="background-color: {{ doc.auditresult.risk_color }};" class="status-ind"></div>
+                                    {% for risk in RISK_LEVELS %}
+                                        {% if risk.0 == doc.auditresult.risk_level %}
+                                            <label class="carta-tarea-titulo">Riesgo: {{ risk.1 }}</label>
+                                        {% endif %}
+                                    {% endfor %}
+                            </div>
+                        <!--
+                        FIXME
+                         - extracted_text
+                         - red_flags
+                        -->
+<!--                            <p class="contenido">text: </p>-->
+                            <details style="padding: 40px 0px 0px 0px;">
+                                <summary class="contenido">Texto extraido</summary>
+                                <p >{{ doc.auditresult.extracted_text }}</p>
+                            </details>
+                            {% if doc.auditresult.red_flags %}
+                                <details style="padding: 40px 0px 10px 0px;">
+                                    <summary class="contenido">Red flags encontradas</summary>
+                                    <p >{{ doc.auditresult.red_flags }}</p>
+                                </details>
+                            {% endif %}
+
+                            <p class="contenido">{{ doc.created_at|date:"Y-m-d @ H:i" }} (Auditado: {{ doc.auditresult.created_at|date:"Y-m-d @ H:i" }})</p>
+                        {% else %}
+
+                            <!--
+                            La mejor decision es poner el boton como un form para que en un
+                            supuesto futuro donde esto se escalaria, se podria poner auditado
+                            por X si es que varios documentos legales pudiesen ser llevados
+                            por mas de un abogado (como un miniequipo a los que todos tienen
+                            acceso al mismo documento, la vision actual del proyecto no nos
+                            "permite" hacer eso).
+                            -->
+                            <form method="post" action="{% url 'auditar_doc' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="doc_id" value="{{ doc.id }}">
+                                <button type="submit" class="btn-log">
+                                    <span>Auditar</span>
+                                </button>
+                            </form>
+
+                            <p class="contenido">{{ doc.created_at|date:"Y-m-d @ H:i" }}</p>
+                        {% endif %}
+
+
+
                     </div>
                 </div>
 

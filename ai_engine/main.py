@@ -121,7 +121,8 @@ def extraer_texto(content: bytes):
     return text
 
 
-
+# Como lo que hay que hacer con la IA tampoco es gran cosa (en cuanto a codigo) lo
+#  pondremos todo en un mismo archivo para simplificarlo todo.
 def analisis_ia(texto:str):
     """La IA analiza el texto entregado cualitativamente"""
 
@@ -176,15 +177,18 @@ def iniciar_ia() -> tuple[RunnableSerializable[dict, AIMessage], RunnableSeriali
     human_msg_redflags = (
         "Search for unfair, illegal, or high-risk legal clauses in the following "
         "document: {content}. Return a comma-separated list of all the names of clauses "
-        "of this type that you find, and nothing else; respond in Spanish. If you don’t "
-        "find anything unusual, reply with a single space character, and nothing else."
+        "(each name should start with the character '|' then) of this type that you find"
+        " and its reason separated by an dash '-', and nothing else; respond in Spanish."
+        " If you don’t find anything unusual, reply with a single space character, and "
+        "nothing else."
     )
     # Este se centra en valorar el docuento
     human_msg_valorador_riesgo = (
         "Search for unfair, illegal, or high-risk legal clauses in the following "
-        "document: {content}. You must return JUST ONE of these four options (none, low, "
-        "medium, high) depending on whether the clauses you find are dangerous (high) "
-        "or, conversely, normal and pose no risk (none). Do not response anything more."
+        "document: {content}. You must return JUST ONE of these four options (none, low,"
+        " medium, high) depending on whether the clauses you find are VERY DANGEROUS"
+        " (high), moderately dangerous (medium), or with low risk (low) or, conversely, "
+        "normal and pose no risk (none). Do not response anything more."
     )
 
     prompt_redflags = ChatPromptTemplate.from_messages([
