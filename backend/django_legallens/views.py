@@ -87,7 +87,7 @@ def realizar_auditacion(request):
 
 def __send_pdf_to_ai(file_path:str) -> dict:
     with open(file_path, "rb") as f:
-        files = {"file": f}
+        files = {"archivo": f}
         response = requests.post(FASTAPI_URL, files=files)
     if response.status_code != 200:
         raise Exception(f"Error comunicando con AI Engine ({response.status_code})")
