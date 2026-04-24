@@ -18,7 +18,7 @@ class HomeDashboard(ListView):
 
     def get_documentos_by_lawyer(self):
         lawyer_id = self.request.user.id
-        docs = Contract.objects.all().filter(lawyer=lawyer_id).order_by('created_at')
+        docs = Contract.objects.all().filter(lawyer=lawyer_id).order_by('-created_at')
         return docs
 
 
