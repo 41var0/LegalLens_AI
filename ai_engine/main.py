@@ -83,7 +83,7 @@ async def upload_pdf(archivo: UploadFile = File(...)):
     texto = extraer_texto(content=content)
 
     # Las tokens de la IA no son gratuitas, esto nos permite simular el funcionamiento de a IA
-    is_offline = environ.get("FASTAPI_OFFLINE")
+    is_offline = environ.get("FASTAPI_OFFLINE", True)
     print(f"{f"FastAPI Offline ? : {is_offline}":40} | ({datetime.now()})")
 
     if (is_offline):
