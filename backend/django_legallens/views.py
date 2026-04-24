@@ -67,7 +67,7 @@ def realizar_auditacion(request):
 
 
         # Obtenemos lso resultados de la IA
-        result = __send_pdf_to_ai(file_path=doc.file)
+        result = __send_pdf_to_ai(file_path=doc.file.path)
 
         # Guardar todo
         nueva_auditacion.extracted_text = result.get("extracted_text", "")
