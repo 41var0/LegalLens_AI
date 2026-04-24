@@ -71,7 +71,7 @@ def realizar_auditacion(request):
 
         # Guardar todo
         nueva_auditacion.extracted_text = result.get("extracted_text", "")
-        nueva_auditacion.red_flags = result.get("red_flags", "")
+        nueva_auditacion.red_flags = ", ".join(result.get("red_flags", ""))
         nueva_auditacion.risk_level = result.get("risk_level", "None")
         nueva_auditacion.save()
 
