@@ -140,7 +140,7 @@
         {% for doc in documentos_legales %}
             <ul>
 
-                <div class="carta {% if doc.completed %} carta-auditada {% else %} carta-sin-auditar {% endif %}">
+                <div class="carta {{ doc.completed|yesno:'carta-auditada,carta-sin-auditar,carta-none_auditada' }} ">
                     <div class="carta-contenido">
                         <p class="encabezado">{{ doc.client_name }}</p>
                         <p class="contenido">{{ doc.created_at }}</p>
