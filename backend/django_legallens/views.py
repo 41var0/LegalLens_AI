@@ -26,7 +26,6 @@ class HomeDashboard(ListView):
         context = super().get_context_data(**kwargs)
 
         context["documentos_legales"] = self.get_documentos_by_lawyer()
-        print(context["documentos_legales"][0])
         context["RISK_LEVELS"] = AuditResult.RISK_LEVELS
 
         return context
