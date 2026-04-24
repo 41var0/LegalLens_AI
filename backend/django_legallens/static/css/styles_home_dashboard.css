@@ -245,6 +245,9 @@ html {
   background: linear-gradient(35deg, #f70814 0%, #89040B 100%) ;
 }
 
+.carta-none_auditada::before {
+  background: white;
+}
 
 .carta:hover::before {
   height: 8%;
